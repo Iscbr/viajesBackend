@@ -17,7 +17,7 @@ public class Boleto implements Serializable {
     @Column(name = "reserva", nullable = false, unique = true, updatable = false)
     private Integer reserva;
 
-    @Column(name = "fecha_ceacion")
+    @Column(name = "fecha_creacion")
     @CreationTimestamp
     private LocalDateTime fechaCreacion;
 
@@ -30,4 +30,8 @@ public class Boleto implements Serializable {
 
     @Column(name = "activo")
     private Boolean activo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_vuelo", nullable = false)
+    private Vuelo vuelo;
 }

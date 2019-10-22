@@ -19,9 +19,13 @@ public class Promocion implements Serializable {
     @Column(name = "tipo", length = 10)
     private String tipo;
 
-    @Column(name = "descripion", length = 150)
+    @Column(name = "descripcion", length = 150)
     private String descripcion;
 
     @Column(name = "activo")
     private Boolean activo;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_precio")
+    private Precio precio;
 }

@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -34,4 +35,14 @@ public class Usuario implements Serializable {
 
     @Column(name = "activo")
     private Boolean activo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_rol")
+    private Rol rol;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "usuario_vuelo",
+            joinColumns = @JoinColumn(name = "id_usuario", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "id_vuelo", nullable = false))
+    private List<Vuelo> vuelos;
 }

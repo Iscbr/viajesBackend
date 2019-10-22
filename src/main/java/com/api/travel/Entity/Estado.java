@@ -18,7 +18,7 @@ public class Estado implements Serializable {
     @Column(name = "nombre", length = 50)
     private String nombre;
 
-    @Column(name = "descripion", length = 150)
+    @Column(name = "descripcion", length = 150)
     private String descripcion;
 
     @Column(name = "activo")

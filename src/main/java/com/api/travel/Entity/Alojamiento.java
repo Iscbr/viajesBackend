@@ -3,6 +3,7 @@ package com.api.travel.Entity;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "alojamiento")
@@ -28,4 +29,11 @@ public class Alojamiento implements Serializable {
 
     @Column(name = "activo")
     private Boolean activo;
+
+    @OneToMany(mappedBy = "alojamiento")
+    private List<Precio> precio;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_lugar")
+    private Lugar lugar;
 }

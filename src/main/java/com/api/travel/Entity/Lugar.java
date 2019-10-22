@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "lugar")
@@ -25,4 +26,7 @@ public class Lugar implements Serializable {
 
     @Column(name = "activo")
     private Boolean activo;
+
+    @OneToMany(mappedBy = "lugar")
+    private List<Alojamiento> alojamientos;
 }

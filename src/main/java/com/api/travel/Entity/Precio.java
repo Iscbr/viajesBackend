@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "precio")
@@ -27,5 +28,18 @@ public class Precio implements Serializable {
     private String descripcion;
 
     @Column(name = "activo")
-    private String activo;
+    private Boolean activo;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_alojamiento")
+    private Alojamiento alojamiento;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_vuelo")
+    private Vuelo vuelo;
+
+    @OneToMany(mappedBy = "precio")
+    private List<Promocion> promociones;
+
+
 }
