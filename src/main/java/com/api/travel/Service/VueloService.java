@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class VueloService {
         this.vueloRepository = vueloRepository;
     }
 
-    public FlightsDTO getRoundFlights(String origin, String destination, LocalDate dateGo, LocalDate dateBack, String category) {
+    public FlightsDTO getRoundFlights(String origin, String destination, LocalDateTime dateGo, LocalDateTime dateBack, String category) {
         List<Vuelo> flightsGo = this.vueloRepository.findAllByActivoTrueAndOrigenEqualsAndDestinoEqualsAndFechaIdaEquals(origin, destination, dateGo);
         List<Vuelo> flightsBack = this.vueloRepository.findAllByActivoTrueAndOrigenEqualsAndDestinoEqualsAndFechaIdaEquals(destination, origin, dateBack);
 
@@ -33,7 +34,7 @@ public class VueloService {
         return flightsDTO;
     }
 
-    public FlightsDTO getSingleFlights(String origin, String destination, LocalDate dateGo, String category) {
+    public FlightsDTO getSingleFlights(String origin, String destination, LocalDateTime dateGo, String category) {
         List<Vuelo> flightsGo = this.vueloRepository.findAllByActivoTrueAndOrigenEqualsAndDestinoEqualsAndFechaIdaEquals(origin, destination, dateGo);
 
         if (flightsGo == null)

@@ -26,6 +26,7 @@ public class LugarController {
     @GetMapping("/getAll")
     public ResponseEntity<Object> getAllPlaces() {
 
+
         HashMap<String, Object> response = new HashMap<>();
         List<Lugar> places = null;
         try {

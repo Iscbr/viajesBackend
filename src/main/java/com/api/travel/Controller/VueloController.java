@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 @RestController
@@ -28,11 +30,13 @@ public class VueloController {
     public ResponseEntity<Object> getFlightsThatMatch(@PathVariable("type") Boolean type,
                                               @PathVariable("origin") String origin,
                                               @PathVariable("destination") String destination,
-                                              @PathVariable("dateGo") LocalDate dateGo,
-                                              @PathVariable("dateBack") LocalDate dateBack,
+                                              @PathVariable("dateGo") String dateGo,
+                                              @PathVariable("dateBack") String dateBack,
                                               @PathVariable("category") String category) {
 
         HashMap<String, Object> response = new HashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         if (type ==null) {
             response.put("error", "parámetro inválido");
             response.put("message", "Variable 'type' no puede ser null. Debe ser 'true' = vuelo redondo o 'false' = vuelo sencillo");
@@ -46,7 +50,9 @@ public class VueloController {
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
             try {
-                FlightsDTO flightsDTO = this.vueloService.getRoundFlights(origin, destination, dateGo, dateBack, category);
+                LocalDateTime go = LocalDateTime.parse(dateGo + " 00:00", formatter);
+                LocalDateTime back = LocalDateTime.parse(dateBack + " 00:00", formatter);
+                FlightsDTO flightsDTO = this.vueloService.getRoundFlights(origin, destination, go, back, category);
                 if (flightsDTO == null) {
                     response.put("error", "vuelos no encotrados.");
                     response.put("message", "No se han encontrado vuelos que coincidan con los parámetros enviados.");
@@ -70,7 +76,8 @@ public class VueloController {
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
             try {
-                FlightsDTO flightsDTO = this.vueloService.getSingleFlights(origin, destination, dateGo, category);
+                LocalDateTime go = LocalDateTime.parse(dateGo + " 00:00", formatter);
+                FlightsDTO flightsDTO = this.vueloService.getSingleFlights(origin, destination, go, category);
                 if (flightsDTO == null) {
                     response.put("error", "vuelos no encontrados");
                     response.put("message", "no se han encontrado vuelos que coincidan con los parametros enviados.");
