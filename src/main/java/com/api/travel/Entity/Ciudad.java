@@ -13,7 +13,6 @@ public class Ciudad implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ciudad", nullable = false, unique = true, updatable = false)
-    @JsonIgnore
     private Integer id;
 
     @Column(name = "nombre", length = 50)

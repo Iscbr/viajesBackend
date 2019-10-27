@@ -12,7 +12,6 @@ public class Promocion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, updatable = false)
-    @JsonIgnore
     private Integer id;
 
     @Column(name = "clave", length = 10)

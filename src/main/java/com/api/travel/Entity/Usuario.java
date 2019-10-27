@@ -1,10 +1,13 @@
 package com.api.travel.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,18 +19,29 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, updatable = false)
-    @JsonIgnore
     private Integer id;
 
-    @Column(name = "nombre", length = 30)
+    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 30)
+    @Column(name = "nombre", length = 30, nullable = false)
     private String nombre;
 
-    @Column(name = "apellidos", length = 50)
+    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 50)
+    @Column(name = "apellidos", length = 50, nullable = false)
     private String apellidos;
 
-    @Column(name = "email", length = 20)
+    @NotNull
+    @NotEmpty
+    @Email
+    @Column(name = "email", length = 20, nullable = false)
     private String email;
 
+    @NotNull
+    @NotEmpty
+    @Size(min = 6, max = 30)
     @Column(name = "passwd")
     private String password;
 

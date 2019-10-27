@@ -14,7 +14,6 @@ public class Aeropuerto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aeropuerto", nullable = false, unique = true, updatable = false)
-    @JsonIgnore
     private Integer id;
 
     @Column(name = "nombre", length = 50)

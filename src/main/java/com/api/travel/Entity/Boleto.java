@@ -16,7 +16,6 @@ public class Boleto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reserva", nullable = false, unique = true, updatable = false)
-    @JsonIgnore
     private Integer reserva;
 
     @Column(name = "fecha_creacion")

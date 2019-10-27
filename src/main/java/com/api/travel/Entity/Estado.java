@@ -15,7 +15,6 @@ public class Estado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, updatable = false)
-    @JsonIgnore
     private Integer id;
 
     @Column(name = "nombre", length = 50)
