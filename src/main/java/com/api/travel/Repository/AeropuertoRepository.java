@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AeropuertoRepository extends CrudRepository<Aeropuerto, Integer> {
+
+    Aeropuerto findByActivoTrueAndNombreEquals(String name);
 }

@@ -1,5 +1,6 @@
 package com.api.travel.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class Precio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "base", precision = 4)
@@ -29,14 +31,6 @@ public class Precio implements Serializable {
 
     @Column(name = "activo")
     private Boolean activo;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_alojamiento")
-    private Alojamiento alojamiento;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_vuelo")
-    private Vuelo vuelo;
 
     @OneToMany(mappedBy = "precio")
     private List<Promocion> promociones;

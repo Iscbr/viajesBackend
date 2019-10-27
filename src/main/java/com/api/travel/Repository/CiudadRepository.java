@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CiudadRepository extends CrudRepository<Ciudad, Integer> {
+    Ciudad getByActivoTrueAndNombreEquals(String name);
 }

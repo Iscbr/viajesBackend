@@ -1,5 +1,6 @@
 package com.api.travel.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,6 +16,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "nombre", length = 30)

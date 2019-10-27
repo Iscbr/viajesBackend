@@ -1,5 +1,6 @@
 package com.api.travel.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ public class Promocion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "clave", length = 10)

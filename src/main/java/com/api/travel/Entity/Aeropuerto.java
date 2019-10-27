@@ -1,5 +1,7 @@
 package com.api.travel.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ public class Aeropuerto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aeropuerto", nullable = false, unique = true, updatable = false)
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "nombre", length = 50)

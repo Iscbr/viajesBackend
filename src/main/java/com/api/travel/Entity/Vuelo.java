@@ -1,5 +1,7 @@
 package com.api.travel.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,21 +17,12 @@ public class Vuelo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @JsonIgnore
     private Integer id;
 
-    @Column(name = "origen", length = 50)
-    private String origen;
-
-    @Column(name = "destino", length = 50)
-    private String destino;
-
-    @Column(name = "fecha_ida")
+    @Column(name = "fecha")
     @CreationTimestamp
-    private LocalDateTime fechaIda;
-
-    @Column(name = "fecha_regreso")
-    @CreationTimestamp
-    private LocalDateTime fecahregreso;
+    private LocalDateTime fecha;
 
     @Column(name = "no_pasajeros")
     private Integer pasajeros;
@@ -40,13 +33,22 @@ public class Vuelo implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
 
-    @OneToMany(mappedBy = "vuelo")
-    private List<Precio> precios;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_aeropuerto_origen")
+    private Aeropuerto aeropuertoOrigen;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_aeropuerto_destino")
+    private Aeropuerto aeropuertoDestino;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_precio")
+    private Precio precio;
+
+    /*@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "vuelo_lugar",
             joinColumns = @JoinColumn(name = "id_vuelo", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "id_lugar", nullable = false))
-    private List<Lugar> lugares;
+    private List<Lugar> lugares;*/
 
 }

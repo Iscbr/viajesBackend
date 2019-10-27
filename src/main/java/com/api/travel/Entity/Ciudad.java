@@ -1,5 +1,6 @@
 package com.api.travel.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ public class Ciudad implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ciudad", nullable = false, unique = true, updatable = false)
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "nombre", length = 50)
@@ -25,5 +27,6 @@ public class Ciudad implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_estado")
+    @JsonIgnore
     private Estado estado;
 }

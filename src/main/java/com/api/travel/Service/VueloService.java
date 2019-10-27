@@ -1,12 +1,13 @@
 package com.api.travel.Service;
 
 import com.api.travel.DTO.FlightsDTO;
+import com.api.travel.Entity.Aeropuerto;
 import com.api.travel.Entity.Vuelo;
+import com.api.travel.Repository.AeropuertoRepository;
 import com.api.travel.Repository.VueloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,15 +15,24 @@ import java.util.List;
 public class VueloService {
 
     private final VueloRepository vueloRepository;
+    private final AeropuertoRepository aeropuertoRepository;
 
     @Autowired
-    public VueloService(VueloRepository vueloRepository) {
+    public VueloService(VueloRepository vueloRepository,
+                        AeropuertoRepository aeropuertoRepository) {
         this.vueloRepository = vueloRepository;
+        this.aeropuertoRepository = aeropuertoRepository;
     }
 
     public FlightsDTO getRoundFlights(String origin, String destination, LocalDateTime dateGo, LocalDateTime dateBack, String category) {
-        List<Vuelo> flightsGo = this.vueloRepository.findAllByActivoTrueAndOrigenEqualsAndDestinoEqualsAndFechaIdaEquals(origin, destination, dateGo);
-        List<Vuelo> flightsBack = this.vueloRepository.findAllByActivoTrueAndOrigenEqualsAndDestinoEqualsAndFechaIdaEquals(destination, origin, dateBack);
+        Aeropuerto origen = this.aeropuertoRepository.findByActivoTrueAndNombreEquals(origin);
+        Aeropuerto destino = this.aeropuertoRepository.findByActivoTrueAndNombreEquals(destination);
+
+        if (origen == null || destino == null)
+            return null;
+
+        List<Vuelo> flightsGo = this.vueloRepository.findAllByActivoTrueAndAeropuertoOrigenEqualsAndAeropuertoDestinoEqualsAndFechaGreaterThanEqual(origen, destino, dateGo);
+        List<Vuelo> flightsBack = this.vueloRepository.findAllByActivoTrueAndAeropuertoOrigenEqualsAndAeropuertoDestinoEqualsAndFechaGreaterThanEqual(destino, origen, dateBack);
 
         if (flightsGo == null && flightsBack == null)
             return null;
@@ -35,7 +45,13 @@ public class VueloService {
     }
 
     public FlightsDTO getSingleFlights(String origin, String destination, LocalDateTime dateGo, String category) {
-        List<Vuelo> flightsGo = this.vueloRepository.findAllByActivoTrueAndOrigenEqualsAndDestinoEqualsAndFechaIdaEquals(origin, destination, dateGo);
+        Aeropuerto origen = this.aeropuertoRepository.findByActivoTrueAndNombreEquals(origin);
+        Aeropuerto destino = this.aeropuertoRepository.findByActivoTrueAndNombreEquals(destination);
+
+        if (origen == null || destination == null) return null;
+
+        List<Vuelo> flightsGo = this.vueloRepository.findAllByActivoTrueAndAeropuertoOrigenEqualsAndAeropuertoDestinoEqualsAndFechaGreaterThanEqual(origen, destino, dateGo);
+        //List<Vuelo> flightsGo = this.vueloRepository.findAllByActivoTrueAndOrigenEqualsAndDestinoEqualsAndFechaIdaEquals(origin, destination, dateGo);
 
         if (flightsGo == null)
             return null;

@@ -1,5 +1,6 @@
 package com.api.travel.Repository;
 
+import com.api.travel.Entity.Aeropuerto;
 import com.api.travel.Entity.Vuelo;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -9,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface VueloRepository extends CrudRepository<Vuelo, Integer> {
-    List<Vuelo> findAllByActivoTrueAndOrigenEqualsAndDestinoEqualsAndFechaIdaEquals(String origin, String destination, LocalDateTime dateGo);
+    List<Vuelo> findAllByActivoTrueAndAeropuertoOrigenEqualsAndAeropuertoDestinoEqualsAndFechaGreaterThanEqual(Aeropuerto origen, Aeropuerto destino, LocalDateTime dateTime);
 }
