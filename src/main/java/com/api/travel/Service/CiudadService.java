@@ -13,7 +13,7 @@ public class CiudadService {
         this.ciudadRepository = ciudadRepository;
     }
 
-    public Ciudad getCityByName(String cityName) {
-        return this.ciudadRepository.getByActivoTrueAndNombreEquals(cityName);
+    public Ciudad getCityById(Integer idCity) {
+        return ciudadRepository.findById(idCity).orElse(null);
     }
 }

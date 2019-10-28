@@ -35,6 +35,7 @@ public class Usuario implements Serializable {
 
     @NotNull
     @NotEmpty
+    @Size(min = 7, max = 20)
     @Email
     @Column(name = "email", length = 20, nullable = false)
     private String email;

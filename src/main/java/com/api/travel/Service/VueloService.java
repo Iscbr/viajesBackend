@@ -24,9 +24,9 @@ public class VueloService {
         this.aeropuertoRepository = aeropuertoRepository;
     }
 
-    public FlightsDTO getRoundFlights(String origin, String destination, LocalDateTime dateGo, LocalDateTime dateBack, String category) {
-        Aeropuerto origen = this.aeropuertoRepository.findByActivoTrueAndNombreEquals(origin);
-        Aeropuerto destino = this.aeropuertoRepository.findByActivoTrueAndNombreEquals(destination);
+    public FlightsDTO getRoundFlights(Integer origin, Integer destination, LocalDateTime dateGo, LocalDateTime dateBack, String category) {
+        Aeropuerto origen = this.aeropuertoRepository.findByActivoTrueAndId(origin);
+        Aeropuerto destino = this.aeropuertoRepository.findByActivoTrueAndId(destination);
 
         if (origen == null || destino == null)
             return null;
@@ -44,9 +44,9 @@ public class VueloService {
         return flightsDTO;
     }
 
-    public FlightsDTO getSingleFlights(String origin, String destination, LocalDateTime dateGo, String category) {
-        Aeropuerto origen = this.aeropuertoRepository.findByActivoTrueAndNombreEquals(origin);
-        Aeropuerto destino = this.aeropuertoRepository.findByActivoTrueAndNombreEquals(destination);
+    public FlightsDTO getSingleFlights(Integer origin, Integer destination, LocalDateTime dateGo, String category) {
+        Aeropuerto origen = this.aeropuertoRepository.findByActivoTrueAndId(origin);
+        Aeropuerto destino = this.aeropuertoRepository.findByActivoTrueAndId(destination);
 
         if (origen == null || destination == null) return null;
 

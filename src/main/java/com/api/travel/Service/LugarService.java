@@ -25,4 +25,8 @@ public class LugarService {
     public List<Lugar> getAll() {
         return this.lugarRepository.getAllByActivoTrue();
     }
+
+    public List<Lugar> getBySate(Integer idState) {
+        return estadoRepository.findById(idState).orElse(null).getLugares();
+    }
 }

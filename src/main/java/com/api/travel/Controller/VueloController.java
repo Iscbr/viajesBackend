@@ -2,8 +2,11 @@ package com.api.travel.Controller;
 
 import com.api.travel.DTO.FlightsDTO;
 import com.api.travel.Service.VueloService;
+import com.api.travel.Util.View;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,10 +29,11 @@ public class VueloController {
         this.vueloService = vueloService;
     }
 
-    @GetMapping("/getFlights/{type}/{origin}/{destination}/{dateGo}/{dateBack}/{category}")
+    @JsonView(View.Summary.class)
+    @GetMapping(value = "/getFlights/{type}/{origin}/{destination}/{dateGo}/{dateBack}/{category}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getFlightsThatMatch(@PathVariable("type") Boolean type,
-                                              @PathVariable("origin") String origin,
-                                              @PathVariable("destination") String destination,
+                                              @PathVariable("origin") Integer origin,
+                                              @PathVariable("destination") Integer destination,
                                               @PathVariable("dateGo") String dateGo,
                                               @PathVariable("dateBack") String dateBack,
                                               @PathVariable("category") String category) {

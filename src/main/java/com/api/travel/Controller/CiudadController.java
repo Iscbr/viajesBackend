@@ -1,7 +1,6 @@
 package com.api.travel.Controller;
 
 import com.api.travel.Entity.Ciudad;
-import com.api.travel.Entity.Estado;
 import com.api.travel.Service.CiudadService;
 import com.api.travel.Service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,30 +24,21 @@ public class CiudadController {
         this.estadoService = estadoService;
     }
 
-    @GetMapping("/getState/{city}")
-    public ResponseEntity<Object> getState(@PathVariable("city") String city) {
+    @GetMapping("/getCityDetail/{id}")
+    public ResponseEntity<Object> getState(@PathVariable("id") Integer idCity) {
         HashMap<String, Object> response = new HashMap<>();
 
-        if (city == null) {
-            response.put("error", "Ciudad inválida.");
-            response.put("message", "El nombre de la ciudad no puede ser null");
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
         try {
-            Ciudad ciudad = this.ciudadService.getCityByName(city);
-
+            Ciudad ciudad = ciudadService.getCityById(idCity);
             if (ciudad == null) {
                 response.put("error", "Ciudad inexistente");
                 response.put("message", "No se ha encontrado ninguna ciudad con los parámetros enviados.");
                 return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
-
-            Estado estado = ciudad.getEstado();
-            response.put("successful", "Estado encontrado");
-            response.put("state", estado);
+            response.put("successful", "Detalle de ciudad encontrado");
+            response.put("city", ciudad);
         } catch (Exception e) {
-            response.put("error", "Ocurrió un error al obtener el estado");
+            response.put("error", "Ocurrió un error al obtener el detalle de la ciudad.");
             response.put("message", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
