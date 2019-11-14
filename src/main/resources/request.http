@@ -1,0 +1,42 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection) or
+# paste cURL into the file and request will be converted to HTTP Request format.
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST http://localhost:8080/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic cmVsYXh0cmF2ZWw6UmVsQHhfVHJhdmVsMiMu
+
+username=israelscbr%40gmail.com&password=12345&grant_type=password
+
+###
+
+POST http://localhost:8080/user/save
+Content-Type: application/json
+Authorization: Bearer  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJpc3JhZWxzY2JyQGdtYWlsLmNvbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJuYW1lIjoiSXNyYWVsIiwic2Vjb25kX25hbWUiOiJFc2NvYmFyIFQiLCJhY3RpdmUiOnRydWUsImV4cCI6MTU3MzY4MDE2NiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiIyODM1YTFlYS1jM2ZiLTRjYTctODZjZC04ZWUyYjBkY2Y4YzIiLCJjbGllbnRfaWQiOiJyZWxheHRyYXZlbCJ9.APQU64NLENiYqsdQCTjR9z2-ueo-j3N9ClAK8quePcxzM3ErdRTCQnU7erBRSiSYlo9vLNI-qTNlwazzvq5GoRkRZVmv4qA0sTcn2A3gvHYLcV3CVZugF3hHZEFhq9in0l8VhX4tc3zoq63fjMFmRykAy4l6Kni_qr_6h09RdldPnOJ6V_fHiMFfMJFbyYuGh20eY8u0SER9ZewFqXA2d4LZtMhYzF97BpHFQ-9Gg7pCpZLM5hYFP8z03xcfi9F0gCEGOSmahVljh6GiywJyFxbnR5rKkh92TM28GWCiTTodOutlXxihjSaDQi0dcPgBiy99jjZwCxm1AB6mFVfCZA
+
+{
+  "nombre":"Nombre test",
+  "apellidos":"Apellidos test",
+  "email":"test@test.com",
+  "password":"123456",
+  "activo":true
+}
+
+###
+
+POST http://localhost:8080/user/addCard/19
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJpc3JhZWxzY2JyQGdtYWlsLmNvbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJuYW1lIjoiSXNyYWVsIiwic2Vjb25kX25hbWUiOiJFc2NvYmFyIFQiLCJhY3RpdmUiOnRydWUsImV4cCI6MTU3MzcyMjYzNSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiI2OTRmMjNlMy0xZWYwLTQ5MjctYTY1Yy0zYmEyMWNmNmVkNDYiLCJjbGllbnRfaWQiOiJyZWxheHRyYXZlbCJ9.YaC7eGRdzVQLC2lDw3PGF8wJpSFHVDLIBBDz2EtPtqw3tri7QBSTNflHDPMcznseh45L1Mn6pEPN9a_hua2_fDfST6LZ3fckxGPqdxg3PyI5SEQ5Jbk2EXtYmMii8-0K3V0bceH3BKx8JqRnqYGySqCChRG3jFIGFCbK1hZ3wsg9xtaTcAGMlLWpNKUvFrS-8NU8sVJ5DB1hEBZcmaToly101FRIwYYM_luUa-FOvuLHx5_SnMMAJEMZ21JeQY_5g28x1FRKhhs61LjVNrSxIkMJ-Chu8yA2ZvtI8wpj20DCvJB8fj6rdYySxWY25tmJWGZ9YK22UMYd8avHmSV4hA
+
+{
+  "cardNumber":"4433 6253 6462 7623",
+  "expirationDate":"01/21",
+  "cvv":"246",
+  "type":"VISA"
+}
+
+###

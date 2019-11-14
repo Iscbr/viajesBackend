@@ -42,7 +42,6 @@ public class Usuario implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Size(min = 6, max = 30)
     @Column(name = "passwd")
     private String password;
 
@@ -57,9 +56,10 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "id_rol")
     private Rol rol;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "usuario_vuelo",
-            joinColumns = @JoinColumn(name = "id_usuario", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "id_vuelo", nullable = false))
-    private List<Vuelo> vuelos;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Card> cards;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_usuario")
+    private List<Reserva> reservas;
 }
