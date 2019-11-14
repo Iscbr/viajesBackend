@@ -28,8 +28,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/airport/**", "/city/**", "/place/**", "/flights/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/user/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/user/update/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/user/save").permitAll()
+                .antMatchers(HttpMethod.POST, "/user/addCard/**").hasRole("USER")
+                .antMatchers(HttpMethod.PUT, "/user/update/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and().cors().configurationSource(corsConfigurationSource());
     }
