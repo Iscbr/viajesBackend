@@ -3,9 +3,10 @@ package com.api.travel.Controller;
 import com.api.travel.Entity.Card;
 import com.api.travel.Entity.Rol;
 import com.api.travel.Entity.Usuario;
-import com.api.travel.Service.CardService;
+import com.api.travel.Service.MailService;
 import com.api.travel.Service.RolService;
 import com.api.travel.Service.UsuarioService;
+import com.api.travel.Util.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +26,14 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final RolService rolService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final CardService cardService;
+    private final MailService mailService;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService, RolService rolService, BCryptPasswordEncoder bCryptPasswordEncoder, CardService cardService) {
+    public UsuarioController(UsuarioService usuarioService, RolService rolService, BCryptPasswordEncoder bCryptPasswordEncoder, MailService mailService) {
         this.usuarioService = usuarioService;
         this.rolService = rolService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.cardService = cardService;
+        this.mailService = mailService;
     }
 
     @PostMapping("/addCard/{id}")
@@ -115,6 +116,10 @@ public class UsuarioController {
                 response.put("error", "Usuario no guardado");
                 response.put("message", "No se pudo guardar el usuario, inténtalo de nuevo más tarde.");
             }
+            /**
+             * Se envia la confirmación por email del registro
+             */
+            this.sendEmailConfirmation(usuarioGuardado);
             response.put("successfull", "Usuario guardado con éxito.");
             response.put("user", usuarioGuardado);
         } catch (Exception e) {
@@ -179,4 +184,16 @@ public class UsuarioController {
         return ResponseEntity.ok(response);
     }
 
+    private void sendEmailConfirmation(Usuario usuario) throws Exception {
+        HashMap<String, Object> contentMail = new HashMap<>();
+        contentMail.put("name", usuario.getNombre());
+
+        Mail mail = new Mail();
+        mail.setFrom("no-reply@relax-travel.com");
+        mail.setTo(usuario.getEmail());
+        mail.setSubject("Registro éxitoso");
+        mail.setModel(contentMail);
+
+        mailService.sendEmail(mail);
+    }
 }

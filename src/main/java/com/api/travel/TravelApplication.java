@@ -1,19 +1,20 @@
 package com.api.travel;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.api.travel.Service.MailService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @SpringBootApplication
+@Log4j2
 public class TravelApplication implements CommandLineRunner {
 
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final MailService mailService;
 
-	@Autowired
-	public TravelApplication(BCryptPasswordEncoder bCryptPasswordEncoder) {
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	public TravelApplication(MailService mailService) {
+		this.mailService = mailService;
 	}
 
 	public static void main(String[] args) {
@@ -22,7 +23,5 @@ public class TravelApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		String password = bCryptPasswordEncoder.encode("yarelosa");
-		System.out.println("Password generado: " + password);
 	}
 }

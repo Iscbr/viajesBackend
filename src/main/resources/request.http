@@ -19,9 +19,9 @@ POST http://localhost:8080/user/save
 Content-Type: application/json
 
 {
-  "nombre":"Nombre test",
-  "apellidos":"Apellidos test",
-  "email":"test@test.com",
+  "nombre":"Israel",
+  "apellidos":"Escobar Tello",
+  "email":"iscbr96@gmail.com",
   "password":"123456",
   "activo":true
 }
