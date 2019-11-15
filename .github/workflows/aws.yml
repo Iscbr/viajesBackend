@@ -76,7 +76,7 @@ jobs:
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        task-definition: sboot-travel-deploy
         service: sboot-travel-app-service
         cluster: sboot-travel-app-cluster
         wait-for-service-stability: true
